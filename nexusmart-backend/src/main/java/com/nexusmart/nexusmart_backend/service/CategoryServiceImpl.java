@@ -1,5 +1,5 @@
 package com.nexusmart.nexusmart_backend.service;
 
-public class OrderService {
+public class CategoryServiceImpl {
     
 }

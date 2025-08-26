@@ -1,0 +1,5 @@
+package com.nexusmart.nexusmart_backend.serviceInterface;
+
+public interface ProductService {
+
+}
