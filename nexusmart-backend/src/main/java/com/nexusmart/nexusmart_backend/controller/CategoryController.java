@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nexusmart.nexusmart_backend.entity.Category;
-import com.nexusmart.nexusmart_backend.repository.CartItemRepository;
 import com.nexusmart.nexusmart_backend.serviceInterface.CategoryService;
 
 import lombok.RequiredArgsConstructor;
