@@ -32,6 +32,13 @@ public class OrderController {
         return ResponseEntity.ok(order);
     }
 
+    @GetMapping("/user/{id}")
+    public ResponseEntity<List<Order>> getOrdersByUser(@PathVariable Long id) {
+        List<Order> orders= orderService.getOrderByUserId(id);
+        return orders.isEmpty() ?ResponseEntity.notFound().build() : ResponseEntity.ok(orders);
+        
+    }
+
     // Create new order
     @PostMapping
     public ResponseEntity<Order> createOrder(@RequestBody Order order) {
