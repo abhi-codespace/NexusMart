@@ -1,7 +1,6 @@
 package com.nexusmart.nexusmart_backend.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
