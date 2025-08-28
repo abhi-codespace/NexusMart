@@ -1,5 +1,8 @@
 package com.nexusmart.nexusmart_backend.repository;
 
-public class ProductRepository {
-    
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.nexusmart.nexusmart_backend.entity.Product;
+
+public interface ProductRepository extends JpaRepository<Product,Long>{
 }

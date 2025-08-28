@@ -8,6 +8,7 @@ public class NexusmartBackendApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(NexusmartBackendApplication.class, args);
+		System.out.println("Successfully...!!");
 	}
 
 }

@@ -1,5 +1,9 @@
 package com.nexusmart.nexusmart_backend.entity;
 
-public class OrderStatus {
-    
+public enum OrderStatus {
+    CREATED,
+    PAID,
+    SHIPPED,
+    DELIVERED,
+    CANCELLED
 }

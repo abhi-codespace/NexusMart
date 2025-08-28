@@ -27,7 +27,7 @@ function HomePage() {
       {/* Categories */}
       <section className="mt-16">
         <h2 className="mb-6 font-bold text-2xl">Shop by Category</h2>
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-6">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6">
           <div className="bg-gray-100 p-6 rounded-lg border font-extrabold text-center cursor-pointer">Electronics</div>
           <div className="bg-gray-100 p-6 rounded-lg border font-extrabold text-center cursor-pointer">Accessories</div>
           <div className="bg-gray-100 p-6 rounded-lg border font-extrabold text-center cursor-pointer">Fashion</div>
