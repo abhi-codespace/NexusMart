@@ -27,6 +27,7 @@ public class Role {
     @Column(nullable=false,unique=true)
     private RoleType name;
 
-    private String decription;
+    @Column(length = 255)
+    private String description;
     
 }

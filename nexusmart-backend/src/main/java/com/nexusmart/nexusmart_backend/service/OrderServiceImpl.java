@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.nexusmart.nexusmart_backend.entity.Order;
+import com.nexusmart.nexusmart_backend.entity.OrderStatus;
 import com.nexusmart.nexusmart_backend.repository.OrderRepository;
 import com.nexusmart.nexusmart_backend.serviceInterface.OrderService;
 
@@ -29,6 +30,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Order createOrder(Order order) {
+        order.setStatus(OrderStatus.CREATED);
         return orderRepository.save(order);
     }
 
@@ -52,5 +54,26 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public List<Order> getOrderByUserId(Long userId) {
         return orderRepository.findByUserId(userId);
+    }
+
+    @Override
+    public Order updateOrderStatus(Long id, OrderStatus status) {
+        return orderRepository.findById(id).map(existingOrder -> {
+            if (!isValidTransition(existingOrder.getStatus(), status)) {
+                throw new RuntimeException("Invalid status transition: "
+                        + existingOrder.getStatus() + " → " + status);
+            }
+            existingOrder.setStatus(status);
+            return orderRepository.save(existingOrder);
+        }).orElseThrow(() -> new RuntimeException("Order not found with id " + id));
+    }
+
+      private boolean isValidTransition(OrderStatus current, OrderStatus next) {
+        return switch (current) {
+            case CREATED -> (next == OrderStatus.PAID || next == OrderStatus.CANCELLED);
+            case PAID -> (next == OrderStatus.SHIPPED || next == OrderStatus.CANCELLED);
+            case SHIPPED -> (next == OrderStatus.DELIVERED || next == OrderStatus.CANCELLED);
+            case DELIVERED, CANCELLED -> false; // Final states
+        };
     }
 }

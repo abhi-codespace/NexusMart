@@ -3,6 +3,7 @@ package com.nexusmart.nexusmart_backend.serviceInterface;
 import java.util.List;
 
 import com.nexusmart.nexusmart_backend.entity.Order;
+import com.nexusmart.nexusmart_backend.entity.OrderStatus;
 
 public interface OrderService {
 
@@ -17,5 +18,8 @@ public interface OrderService {
     void deleteOrder(Long id);
 
     List<Order> getOrderByUserId(Long userId);
+
+    Order updateOrderStatus(Long id, OrderStatus status);
+
 
 }
