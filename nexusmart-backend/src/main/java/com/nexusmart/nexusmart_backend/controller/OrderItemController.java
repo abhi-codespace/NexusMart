@@ -33,8 +33,8 @@ public class OrderItemController {
         return ResponseEntity.ok(orderItem);
     }
 
-    // Get all order items by orderId
-    @GetMapping("/{id}")
+    // Get all order items by id
+    @GetMapping("/by-order/{id}")
     public ResponseEntity<List<OrderItem>> getOrderItemsByOrderId(@PathVariable Long id) {
         List<OrderItem> items = orderItemService.getOrderItemByOrderId(id);
         return ResponseEntity.ok(items);
