@@ -1,38 +1,33 @@
-package com.nexusmart.nexusmart_backend.services;
+package com.nexusmart.nexusmart_backend.securityService;
 
 import java.security.Key;
-import java.security.NoSuchAlgorithmException;
-import java.util.*;
+import java.util.Base64;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import javax.crypto.KeyGenerator;
-import javax.crypto.SecretKey;
-
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
-import io.jsonwebtoken.*;
-import io.jsonwebtoken.io.Decoders;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 
 @Service
 public class JWTService {
 
+    @Value("${jwt.secret}")
     private String secretKey;
 
-    public JWTService() {
-        try {
-            KeyGenerator keyGenerator = KeyGenerator.getInstance("HmacSHA256");
-            SecretKey sk = keyGenerator.generateKey();
-            this.secretKey = Base64.getEncoder().encodeToString(sk.getEncoded());
-        } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    private static final long EXPIRATION_TIME = 1000 * 60 * 30; // 30 minutes
+    //30 minutes
+    private static final long EXPIRATION_TIME = 1000 * 60 * 30; 
 
     public String generateToken(UserDetails userDetails) {
         Map<String, Object> claims = new HashMap<>();
@@ -78,8 +73,8 @@ public class JWTService {
     }
 
     private Key getKey() {
-        byte[] keyBytes = Decoders.BASE64.decode(secretKey);
-        return Keys.hmacShaKeyFor(keyBytes);
+        // Using Base64-decoded secret (recommended for JWT secret storage)
+        return Keys.hmacShaKeyFor(Base64.getDecoder().decode(secretKey));
     }
 
     public Set<String> extractRoles(String token) {

@@ -15,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    
 
     @Override
     public  User getUserById(Long id) {
