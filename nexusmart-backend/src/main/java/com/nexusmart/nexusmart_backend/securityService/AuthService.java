@@ -1,13 +1,5 @@
 package com.nexusmart.nexusmart_backend.securityService;
 
-import com.nexusmart.nexusmart_backend.dto.AuthRequest;
-import com.nexusmart.nexusmart_backend.dto.AuthResponse;
-import com.nexusmart.nexusmart_backend.dto.RegisterRequest;
-import com.nexusmart.nexusmart_backend.entity.RoleType;
-import com.nexusmart.nexusmart_backend.entity.User;
-import com.nexusmart.nexusmart_backend.repository.UserRepository;
-import lombok.RequiredArgsConstructor;
-
 import java.util.Set;
 
 import org.springframework.security.authentication.AuthenticationManager;
@@ -15,10 +7,22 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.nexusmart.nexusmart_backend.dto.AuthRequest;
+import com.nexusmart.nexusmart_backend.dto.AuthResponse;
+import com.nexusmart.nexusmart_backend.dto.RegisterRequest;
+import com.nexusmart.nexusmart_backend.entity.Role;
+import com.nexusmart.nexusmart_backend.entity.RoleType;
+import com.nexusmart.nexusmart_backend.entity.User;
+import com.nexusmart.nexusmart_backend.repository.RoleRepository;
+import com.nexusmart.nexusmart_backend.repository.UserRepository;
+
+import lombok.RequiredArgsConstructor;
+
 @Service
 @RequiredArgsConstructor
 public class AuthService {
 
+    private final RoleRepository roleRepository;
     private final AuthenticationManager authenticationManager;
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
@@ -47,7 +51,11 @@ public class AuthService {
         user.setUsername(request.getUsername());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setEmail(request.getEmail());
-        user.setRoles(Set.of(RoleType.USER));
+
+
+        Role userRole=roleRepository.findByName(RoleType.USER)
+        .orElseThrow(() -> new RuntimeException("User role not found"));
+        user.setRoles(Set.of(userRole));
 
         userRepository.save(user);
 
