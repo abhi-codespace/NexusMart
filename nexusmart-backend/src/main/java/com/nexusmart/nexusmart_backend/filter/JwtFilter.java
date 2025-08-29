@@ -23,13 +23,13 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class JwtFilter extends OncePerRequestFilter {
 
-    private JWTService jwtService;
+    private final JWTService jwtService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
 
-        final String authHeader = request.getHeader("Authorization");
+         String authHeader = request.getHeader("Authorization");
         String username = null;
         String jwt = null;
 
