@@ -22,7 +22,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class AuthService {
 
-    private final RoleRepository roleRepository;
+    // private final RoleRepository roleRepository;
     private final AuthenticationManager authenticationManager;
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
@@ -52,10 +52,8 @@ public class AuthService {
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setEmail(request.getEmail());
 
-
-        Role userRole=roleRepository.findByName(RoleType.USER)
-        .orElseThrow(() -> new RuntimeException("User role not found"));
-        user.setRoles(Set.of(userRole));
+        user.setRoles(Set.of(RoleType.USER));
+        
 
         userRepository.save(user);
 
