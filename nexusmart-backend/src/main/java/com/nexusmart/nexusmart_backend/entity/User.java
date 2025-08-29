@@ -35,10 +35,10 @@ public class User {
     @Column(nullable = false)
     private String username;
     
-    @Column(nullable = false)
+    @Column(nullable = false,unique = true)
     private String email;
 
-     @Column(nullable = false,unique=true)
+     @Column(nullable = false)
     private String password;
 
 
@@ -49,7 +49,7 @@ public class User {
     )
     @Enumerated(EnumType.STRING)
     @Column(name="role")
-    private Set<Role> roles=new HashSet<>();
+    private Set<RoleType> roles=new HashSet<>();
 
     @OneToOne(mappedBy = "user",cascade = CascadeType.ALL)
     private Cart cart;
