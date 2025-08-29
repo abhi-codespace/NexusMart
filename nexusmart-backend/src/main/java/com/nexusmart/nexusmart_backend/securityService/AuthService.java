@@ -10,10 +10,8 @@ import org.springframework.stereotype.Service;
 import com.nexusmart.nexusmart_backend.dto.AuthRequest;
 import com.nexusmart.nexusmart_backend.dto.AuthResponse;
 import com.nexusmart.nexusmart_backend.dto.RegisterRequest;
-import com.nexusmart.nexusmart_backend.entity.Role;
 import com.nexusmart.nexusmart_backend.entity.RoleType;
 import com.nexusmart.nexusmart_backend.entity.User;
-import com.nexusmart.nexusmart_backend.repository.RoleRepository;
 import com.nexusmart.nexusmart_backend.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
