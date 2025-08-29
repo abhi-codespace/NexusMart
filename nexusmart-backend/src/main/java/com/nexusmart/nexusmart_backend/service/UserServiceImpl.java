@@ -2,6 +2,7 @@ package com.nexusmart.nexusmart_backend.service;
 
 import java.util.List;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.nexusmart.nexusmart_backend.entity.User;
@@ -15,7 +16,7 @@ import lombok.RequiredArgsConstructor;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
-    
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public  User getUserById(Long id) {
@@ -31,6 +32,7 @@ public class UserServiceImpl implements UserService {
 
         @Override
         public User registerUser(User user) {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
             return userRepository.save(user);
         }
 
@@ -40,6 +42,10 @@ public class UserServiceImpl implements UserService {
             existing.setUsername(user.getUsername());
             existing.setEmail(user.getEmail());
             existing.setPassword(user.getPassword());
+
+            if(user.getPassword() != null && !user.getPassword().isBlank()){
+                existing.setPassword(passwordEncoder.encode(user.getPassword()));
+            }
             return userRepository.save(existing);
         }
 
